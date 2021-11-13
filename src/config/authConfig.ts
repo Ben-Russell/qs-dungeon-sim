@@ -1,5 +1,6 @@
+import { Configuration } from "@azure/msal-browser";
 
-export const msalConfig = {
+export const msalConfig: Configuration = {
     auth: {
       clientId: "8f8260e4-2762-495f-afad-1583511139b4",
       authority: "https://login.microsoftonline.com/consumers",
@@ -13,7 +14,7 @@ export const msalConfig = {
   
   // Add scopes here for ID token to be used at Microsoft identity platform endpoints.
   export const loginRequest = {
-   scopes: ["User.Read"]
+   scopes: ["user.read"]
   };
   
   // Add the endpoints here for Microsoft Graph API services you'd like to use.

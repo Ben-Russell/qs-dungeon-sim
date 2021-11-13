@@ -2,7 +2,9 @@ import { Container, Grid, makeStyles } from '@material-ui/core';
 import React, { FC, useState, useEffect } from 'react';
 import { InteractionRequiredAuthError, InteractionStatus } from "@azure/msal-browser";
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
+import axios from 'axios';
 import { loginRequest } from 'config/authConfig';
+import { serverConfig } from 'config/serverConfig';
 import { SignOutButton } from './components/SignOutButton';
 
 import { Routes } from './Routes';
@@ -29,6 +31,8 @@ export const AppLayout: FC = () => {
     const { instance, accounts, inProgress } = useMsal();
     const [accessToken, setAccessToken] = useState<string|null>(null);
 
+    const [username, setUsername] = useState<string|null>(null);
+
     useEffect(() => {
         const request = {
             ...loginRequest,
@@ -47,6 +51,30 @@ export const AppLayout: FC = () => {
             });
         }
 
+        if(accessToken) {
+            let account = accounts[0];
+            
+            if(account) {
+                console.log(`accessToken: ${accessToken} \n`, `account:`, account);
+                axios.defaults.withCredentials = true; 
+                axios.post(serverConfig.baseUrl + `api/getplayer`, {}, {
+                    headers: {
+                      'Authorization': `Bearer ${accessToken}`,
+                    },
+                    withCredentials: false
+                  })
+                .then(function (response) {
+                    console.log('getplayer response:', response);
+                })
+                .catch(function (error) {
+                    console.log('error response:', error);
+                });
+            }
+            
+        }
+
+        
+
         
     }, [instance, accounts, inProgress, accessToken]);
 
@@ -58,6 +86,7 @@ export const AppLayout: FC = () => {
                 <a href="/counter">Counter</a>
                 {accessToken ? <p>token</p> : <p>no token</p>}
                 <br />
+                {username ? <p>Hello {{ username }}</p>: <p></p>}
                 <SignOutButton />
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
