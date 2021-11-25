@@ -1,4 +1,6 @@
 export const config = {
-    iterations: 250000,
-    uniqueMultiplier: 2.5
+    iterations: 500000,
+    statIncrement: 500,
+    uniqueMultiplier: 2.5,
+    workerPath: "/worker.js"
 };

@@ -10,6 +10,15 @@ export interface Fighter {
     item_id?: string;
 }
 
+export const fighterstats: string[] = [
+    "health",
+    "damage",
+    "defense",
+    "critdamage",
+    "hit",
+    "dodge"
+];
+
 // just kinda a default fighter constructor
 export function createFighter(id: number, data = {}): Fighter {
     return {

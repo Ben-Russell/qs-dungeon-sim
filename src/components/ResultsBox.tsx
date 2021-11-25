@@ -18,10 +18,13 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
         top: "30%",
         left: "40%",
-        transform: "translate(-30%, -40%)",
+        transform: "translate(-30%, -20%)",
         fontSize: "1.5em",
         color: "#fff",
         fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
+    },
+    modal: {
+        overflow: "scroll"
     }
 }));
 
@@ -39,6 +42,7 @@ export const ResultsBox = ({}: IResultsBoxProps) => {
     return (
         <>
             <Modal
+                className={classes.modal}
                 open={settings.resultsModalIsOpen}
                 onClose={handleClose}
                 aria-labelledby="simple-modal-title"
