@@ -39,7 +39,7 @@ const createSim = () => {
     worker.postMessage({ type: "test", msg: "hello" });
 };
 
-//createSim();
+createSim();
 
 export const AppLayout: FC = () => {
     const fighters = useSelector(fightersSelector);
